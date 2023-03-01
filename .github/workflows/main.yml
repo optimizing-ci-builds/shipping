@@ -1,16 +1,6 @@
 name: ci
 
-on:
-  push:
-    branches:
-      - "*"  # run for branches
-    tags:
-      - "*"  # run for tags
-  pull_request:
-    branches:
-      - "*"  # run for branches
-    tags:
-      - "*"  # run for tags
+on: [push] # one-run-to-find-them-all
 
 jobs:
   test:
@@ -52,7 +42,6 @@ jobs:
       # Push to dockerhub
       - name: Push to Docker Hub
         uses: docker/build-push-action@v1
-        if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/master'
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
